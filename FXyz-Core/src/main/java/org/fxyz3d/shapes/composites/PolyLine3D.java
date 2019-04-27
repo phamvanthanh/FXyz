@@ -29,6 +29,7 @@
 
 package org.fxyz3d.shapes.composites;
 
+import java.util.Arrays;
 import java.util.List;
 import javafx.scene.AmbientLight;
 import javafx.scene.DepthTest;
@@ -102,6 +103,7 @@ public class PolyLine3D extends Group {
 
     public void setPoints(List<Point3D> pnts){
         points = pnts;
+        System.out.println(points.toString());
         buildCenterRibbon();
     }
 
@@ -170,6 +172,8 @@ public class PolyLine3D extends Group {
         int size = points.size();
         if (size < 2)
             return;
+
+        mesh.getTexCoords().setAll(0,0);
 
         System.out.println("Build center Ribbon");
 
