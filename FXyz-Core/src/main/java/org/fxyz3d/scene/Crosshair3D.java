@@ -80,34 +80,34 @@ public class Crosshair3D extends Group {
         List<Point3D> xPositiveData = new ArrayList<>();
         xPositiveData.add(new Point3D(startPointX, startPointY, startPointZ));
         xPositiveData.add(new Point3D(half, startPointY, startPointZ));
-        xPositivePoly = new PolyLine3D(xPositiveData, lineWidth, xPositiveColor, PolyLine3D.LineType.TRIANGLE);
+        xPositivePoly = new PolyLine3D(xPositiveData, lineWidth,  PolyLine3D.LineType.TRIANGLE);
         //x Axis - Negative direction from centerPoint
         List<Point3D> xNegativeData = new ArrayList<>();
         xNegativeData.add(new Point3D(startPointX, startPointY, startPointZ));
         xNegativeData.add(new Point3D(-half, startPointY, startPointZ));
-        xNegativePoly = new PolyLine3D(xNegativeData, lineWidth, xNegativeColor, PolyLine3D.LineType.TRIANGLE);
+        xNegativePoly = new PolyLine3D(xNegativeData, lineWidth, PolyLine3D.LineType.TRIANGLE);
 
         //y Axis - Positive direction from centerPoint
         List<Point3D> yPositiveData = new ArrayList<>();
         yPositiveData.add(new Point3D(startPointX, startPointY, startPointZ));
         yPositiveData.add(new Point3D(startPointX, half, startPointZ));
-        yPositivePoly = new PolyLine3D(yPositiveData, lineWidth, yPositiveColor, PolyLine3D.LineType.TRIANGLE);
+        yPositivePoly = new PolyLine3D(yPositiveData, lineWidth,  PolyLine3D.LineType.TRIANGLE);
         //y Axis - Negative direction from centerPoint
         List<Point3D> yNegativeData = new ArrayList<>();
         yNegativeData.add(new Point3D(startPointX, startPointY, startPointZ));
         yNegativeData.add(new Point3D(startPointX, -half, startPointZ));
-        yNegativePoly = new PolyLine3D(yNegativeData, lineWidth, yNegativeColor, PolyLine3D.LineType.TRIANGLE);
+        yNegativePoly = new PolyLine3D(yNegativeData, lineWidth,  PolyLine3D.LineType.TRIANGLE);
 
         //z Axis - Positive direction from centerPoint
         List<Point3D> zPositiveData = new ArrayList<>();
         zPositiveData.add(new Point3D(startPointX, startPointY, startPointZ));
         zPositiveData.add(new Point3D(startPointX, startPointY, half));
-        zPositivePoly = new PolyLine3D(zPositiveData, lineWidth, zPositiveColor, PolyLine3D.LineType.TRIANGLE);
+        zPositivePoly = new PolyLine3D(zPositiveData, lineWidth,  PolyLine3D.LineType.TRIANGLE);
         //z Axis - Negative direction from centerPoint
         List<Point3D> zNegativeData = new ArrayList<>();
         zNegativeData.add(new Point3D(startPointX, startPointY, startPointZ));
         zNegativeData.add(new Point3D(startPointX, startPointY, -half));
-        zNegativePoly = new PolyLine3D(zNegativeData, lineWidth, zNegativeColor, PolyLine3D.LineType.TRIANGLE);        
+        zNegativePoly = new PolyLine3D(zNegativeData, lineWidth,  PolyLine3D.LineType.TRIANGLE);
         getChildren().addAll(
             xPositivePoly, xNegativePoly, 
             yPositivePoly, yNegativePoly, 

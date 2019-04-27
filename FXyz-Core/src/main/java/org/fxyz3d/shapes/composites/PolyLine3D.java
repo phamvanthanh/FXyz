@@ -30,13 +30,7 @@
 package org.fxyz3d.shapes.composites;
 
 import java.util.List;
-import javafx.scene.AmbientLight;
-import javafx.scene.DepthTest;
-import javafx.scene.Group;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.PhongMaterial;
 import javafx.scene.shape.CullFace;
-import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 import org.fxyz3d.geometry.Point3D;
@@ -46,31 +40,27 @@ import org.fxyz3d.utils.MeshUtils;
  *
  * @author Sean
  */
-public class PolyLine3D extends Group {
+public class PolyLine3D extends MeshView {
     
     public List<Point3D> points;
-    public static float width = 2.0f;
-    public static Color color = Color.GRAY;
+    public static float width = 1.0f;
     private TriangleMesh mesh;
-    public MeshView meshView;
-    public PhongMaterial material;
     public static enum LineType {RIBBON, CENTER_RIBBON, TRIANGLE};
 
     public PolyLine3D() {
-        this(null, width, color);
+        this(null, width);
     }
 
-    public PolyLine3D(List<Point3D> points, float width, Color color) {
-        this(points, width, color, LineType.CENTER_RIBBON);
+    public PolyLine3D(List<Point3D> points, float width) {
+        this(points, width,  LineType.CENTER_RIBBON);
     }
 
     //Creates a PolyLine3D with the user's choice of mesh style
-    public PolyLine3D(List<Point3D> points, float width, Color color, LineType lineType ) {
+    public PolyLine3D(List<Point3D> points, float width, LineType lineType ) {
         this.points = points;
         this.width = width;
-        this.color = color;
-        setDepthTest(DepthTest.ENABLE);        
         mesh  = new TriangleMesh();
+        setMesh(mesh);
         switch(lineType) {
             case TRIANGLE: buildTriangleTube(); break;
             case RIBBON:  buildRibbon(); break;
@@ -78,25 +68,11 @@ public class PolyLine3D extends Group {
             default:
                 buildCenterRibbon(); break;
         }
-        //Need to add the mesh to a MeshView before adding to our 3D scene 
-        meshView = new MeshView(mesh);
-        meshView.setDrawMode(DrawMode.FILL);  //Fill so that the line shows width
-        material = new PhongMaterial(color);
-        material.setDiffuseColor(color);
-        material.setSpecularColor(color);
-        meshView.setMaterial(material); 
+
         //Make sure you Cull the Back so that no black shows through
-        meshView.setCullFace(CullFace.BACK);
+        setCullFace(CullFace.BACK);
 
-        //Add some ambient light so folks can see it
-//        AmbientLight light = new AmbientLight(Color.WHITE);
-//        light.getScope().add(meshView);
-//        getChildren().add(light);
-        getChildren().add(meshView);           
-    }
 
-    public void setMaterial(PhongMaterial mat){
-        meshView.setMaterial(mat);
     }
 
     public void setPoints(List<Point3D> pnts){
