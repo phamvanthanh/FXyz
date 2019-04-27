@@ -99,7 +99,6 @@ public class PolyLine3D extends Group {
         meshView.setMaterial(mat);
     }
 
-
     public void setPoints(List<Point3D> pnts){
         points = pnts;
         buildCenterRibbon();
