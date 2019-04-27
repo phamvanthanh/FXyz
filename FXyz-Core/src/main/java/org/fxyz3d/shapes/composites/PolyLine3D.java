@@ -49,7 +49,7 @@ import org.fxyz3d.utils.MeshUtils;
 public class PolyLine3D extends Group {
     
     public List<Point3D> points;
-    public static float width = 2.0f;
+    public static float width = 20.0f;
     public static Color color = Color.GRAY;
     private TriangleMesh mesh;
     public MeshView meshView;
@@ -66,12 +66,9 @@ public class PolyLine3D extends Group {
     }
     //Creates a Ribbon PolyLine3D
     public PolyLine3D(List<Point3D> points, float width, Color color) {
-        this(points, width, color, LineType.RIBBON);          
+        this(points, width, color, LineType.CENTER_RIBBON);
     }
-    @Deprecated
-    public PolyLine3D(List<Point3D> points, int width, Color color, LineType lineType ) {
-        this(points, new Integer(width).floatValue(), color, lineType);
-    }
+
     //Creates a PolyLine3D with the user's choice of mesh style
     public PolyLine3D(List<Point3D> points, float width, Color color, LineType lineType ) {
         this.points = points;
@@ -81,8 +78,10 @@ public class PolyLine3D extends Group {
         mesh  = new TriangleMesh();
         switch(lineType) {
             case TRIANGLE: buildTriangleTube(); break;
-            case RIBBON: 
-            default: buildRibbon(); break;
+            case RIBBON:  buildRibbon(); break;
+            case CENTER_RIBBON:
+            default:
+                buildCenterRibbon(); break;
         }
         //Need to add the mesh to a MeshView before adding to our 3D scene 
         meshView = new MeshView(mesh);
@@ -166,10 +165,13 @@ public class PolyLine3D extends Group {
 
 
     private void buildCenterRibbon() {
-
+        if(points == null)
+            return;
         int size = points.size();
         if (size < 2)
             return;
+
+        System.out.println("Build center Ribbon");
 
         float[] coords = new float[size * 6];
 
@@ -193,15 +195,13 @@ public class PolyLine3D extends Group {
 
         coords = MeshUtils.offset(coords, width / 2, 1, false);
 
-
         mesh.getPoints().setAll(coords);
 
+        int[] faces = MeshUtils.buildBoundFaces(coords, 0);
+        int[] backFaces = MeshUtils.revertFaces(faces);
 
-        int[] bottomBackFaces = MeshUtils.buildBoundFaces(coords, 0);
-        int[] bottomFaces = MeshUtils.revertFaces(bottomBackFaces);
-
-        mesh.getFaces().setAll(bottomBackFaces);
-        mesh.getFaces().addAll(bottomFaces);
+        mesh.getFaces().setAll(faces);
+        mesh.getFaces().addAll(backFaces);
 
         int[] smoothGroups = new int[mesh.getFaces().size() / 6];
         mesh.getFaceSmoothingGroups().setAll(smoothGroups);

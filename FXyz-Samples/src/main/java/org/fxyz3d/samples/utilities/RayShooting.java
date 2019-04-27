@@ -29,7 +29,7 @@
 
 package org.fxyz3d.samples.utilities;
 
-import com.sun.javafx.scene.CameraHelper;
+//import com.sun.javafx.scene.CameraHelper;
 import javafx.animation.Interpolator;
 import javafx.animation.PauseTransition;
 import javafx.animation.Transition;
@@ -100,7 +100,8 @@ public class RayShooting extends ShapeBaseSample {
 
         subScene.setOnMousePressed(e -> {
             if (fireRay) {
-                Point3D o = CameraHelper.pickProjectPlane(camera, e.getX(), e.getY());
+//                Point3D o = CameraHelper.pickProjectPlane(camera, e.getX(), e.getY());
+                Point3D o = subScene.localToScene(e.getX(), e.getY(), e.getZ());
                 if (e.isPrimaryButtonDown()) {
                     // set Target and Direction
                     Point3D t = Point3D.ZERO.add(target2.getTranslateX(), target2.getTranslateY(), target2.getTranslateZ()),

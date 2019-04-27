@@ -91,7 +91,7 @@ public class PolyLines3D extends FXyzSample {
         }
         //Use Default constructor for a simple ribbon
         //        polyLine3D = new PolyLine3D(points,3,Color.STEELBLUE);    
-        polyLine3D = new PolyLine3D(points,8, Color.STEELBLUE, LineType.RIBBON);
+        polyLine3D = new PolyLine3D(points,8f, Color.STEELBLUE, LineType.CENTER_RIBBON);
         sceneRoot.getChildren().addAll(polyLine3D);
 
         //First person shooter keyboard movement 
