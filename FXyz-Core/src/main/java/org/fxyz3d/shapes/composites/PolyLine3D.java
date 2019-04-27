@@ -60,11 +60,6 @@ public class PolyLine3D extends Group {
         this(null, width, color);
     }
 
-    @Deprecated
-    public PolyLine3D(List<Point3D> points, int width, Color color) {
-        this(points, new Integer(width).floatValue(), color);
-    }
-    //Creates a Ribbon PolyLine3D
     public PolyLine3D(List<Point3D> points, float width, Color color) {
         this(points, width, color, LineType.CENTER_RIBBON);
     }
@@ -94,15 +89,19 @@ public class PolyLine3D extends Group {
         meshView.setCullFace(CullFace.BACK);
 
         //Add some ambient light so folks can see it
-        AmbientLight light = new AmbientLight(Color.WHITE);
-        light.getScope().add(meshView);
-        getChildren().add(light);
+//        AmbientLight light = new AmbientLight(Color.WHITE);
+//        light.getScope().add(meshView);
+//        getChildren().add(light);
         getChildren().add(meshView);           
     }
 
+    public void setMaterial(PhongMaterial mat){
+        meshView.setMaterial(mat);
+    }
+
+
     public void setPoints(List<Point3D> pnts){
         points = pnts;
-        System.out.println(points.toString());
         buildCenterRibbon();
     }
 
@@ -163,8 +162,6 @@ public class PolyLine3D extends Group {
             mesh.getFaces().addAll(i-1,0,i-2,0,i+1,0); //add secondary Width face
         }        
     }
-
-
     private void buildCenterRibbon() {
         if(points == null)
             return;
@@ -174,7 +171,6 @@ public class PolyLine3D extends Group {
 
         mesh.getTexCoords().setAll(0,0);
 
-        System.out.println("Build center Ribbon");
 
         float[] coords = new float[size * 6];
 
