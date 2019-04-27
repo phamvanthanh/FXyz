@@ -29,7 +29,6 @@
 
 package org.fxyz3d.shapes.composites;
 
-import java.util.Arrays;
 import java.util.List;
 import javafx.scene.AmbientLight;
 import javafx.scene.DepthTest;
@@ -50,7 +49,7 @@ import org.fxyz3d.utils.MeshUtils;
 public class PolyLine3D extends Group {
     
     public List<Point3D> points;
-    public static float width = 20.0f;
+    public static float width = 2.0f;
     public static Color color = Color.GRAY;
     private TriangleMesh mesh;
     public MeshView meshView;
