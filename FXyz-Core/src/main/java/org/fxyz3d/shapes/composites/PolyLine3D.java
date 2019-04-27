@@ -48,13 +48,17 @@ import org.fxyz3d.geometry.Point3D;
 public class PolyLine3D extends Group {
     
     public List<Point3D> points;
-    public float width = 2.0f;
-    public Color color = Color.WHITE;
+    public static float width = 2.0f;
+    public static Color color = Color.GRAY;
     private TriangleMesh mesh;
     public MeshView meshView;
     public PhongMaterial material;
     public static enum LineType {RIBBON, TRIANGLE};
-    
+
+    public PolyLine3D() {
+        this(null, width, color);
+    }
+
     @Deprecated
     public PolyLine3D(List<Point3D> points, int width, Color color) {
         this(points, new Integer(width).floatValue(), color);
@@ -128,15 +132,19 @@ public class PolyLine3D extends Group {
         mesh.getFaces().addAll(last,0, last-1,0, last-2,0);
     }
     private void buildRibbon() {
+        if(points == null)
+            return;
         //add each point. For each point add another point shifted on Z axis by width
         //This extra point allows us to build triangles later
+        mesh.getPoints().clear();
         for(Point3D point: points) {
             mesh.getPoints().addAll(point.x,point.y,point.z);
             mesh.getPoints().addAll(point.x,point.y,point.z+width);
         }
         //add dummy Texture Coordinate
-        mesh.getTexCoords().addAll(0,0); 
+        mesh.getTexCoords().setAll(0,0);
         //Now generate trianglestrips for each line segment
+        mesh.getFaces().clear();
         for(int i=2;i<points.size()*2;i+=2) {  //add each segment
             //Vertices wound counter-clockwise which is the default front face of any Triange
             //These triangles live on the frontside of the line facing the camera
