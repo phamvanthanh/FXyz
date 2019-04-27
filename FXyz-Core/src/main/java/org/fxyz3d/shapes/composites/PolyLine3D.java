@@ -40,6 +40,7 @@ import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.MeshView;
 import javafx.scene.shape.TriangleMesh;
 import org.fxyz3d.geometry.Point3D;
+import org.fxyz3d.utils.MeshUtils;
 
 /**
  *
@@ -53,7 +54,7 @@ public class PolyLine3D extends Group {
     private TriangleMesh mesh;
     public MeshView meshView;
     public PhongMaterial material;
-    public static enum LineType {RIBBON, TRIANGLE};
+    public static enum LineType {RIBBON, CENTER_RIBBON, TRIANGLE};
 
     public PolyLine3D() {
         this(null, width, color);
@@ -163,5 +164,47 @@ public class PolyLine3D extends Group {
         }        
     }
 
+
+    private void buildCenterRibbon() {
+
+        int size = points.size();
+        if (size < 2)
+            return;
+
+        float[] coords = new float[size * 6];
+
+        int index = 0;
+
+        for (int i = 0; i < size; i++) {
+
+            Point3D p = points.get(i);
+            coords[index++] =  p.x;
+            coords[index++] =  p.y;
+            coords[index++] =  p.z;
+        }
+
+        for (int i = size - 1; i > -1; i--) {
+
+            Point3D p = points.get(i);
+            coords[index++] =  p.x;
+            coords[index++] =  p.y;
+            coords[index++] =  p.z;
+        }
+
+        coords = MeshUtils.offset(coords, width / 2, 1, false);
+
+
+        mesh.getPoints().setAll(coords);
+
+
+        int[] bottomBackFaces = MeshUtils.buildBoundFaces(coords, 0);
+        int[] bottomFaces = MeshUtils.revertFaces(bottomBackFaces);
+
+        mesh.getFaces().setAll(bottomBackFaces);
+        mesh.getFaces().addAll(bottomFaces);
+
+        int[] smoothGroups = new int[mesh.getFaces().size() / 6];
+        mesh.getFaceSmoothingGroups().setAll(smoothGroups);
+    }
 
 }

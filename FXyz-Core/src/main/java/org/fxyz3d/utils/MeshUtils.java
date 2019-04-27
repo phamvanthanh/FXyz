@@ -58,6 +58,8 @@ public class MeshUtils {
      * @param mesh
      * @return CSG
      */
+    private static final double SMALL = 0.1;
+
     public static CSG mesh2CSG(MeshView mesh) {
         return mesh2CSG(mesh.getMesh());
     }
@@ -132,5 +134,191 @@ public class MeshUtils {
                 StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
             writer.write(sb.toString());
         }
+    }
+
+    public static int[] buildBoundFaces(float[] coords, int vertexOffset) {
+        List<Integer> topVertices = Earcut.earcut(coords, null, 3);
+        return buildFaces(topVertices, vertexOffset);
+    }
+
+    public static int[] buildFaces(List<Integer> vertices, int vertexOffset) {
+        int verSize = vertices.size();
+        int[] faces = new int[verSize * 2];
+        int fIndex = 0;
+        for (Integer v : vertices) {
+            faces[fIndex] = v + vertexOffset;
+            fIndex++;
+            faces[fIndex] = 0;
+            fIndex++;
+        }
+        return faces;
+    }
+
+    public static int[] revertFaces(int[] faces) {
+        int[] revertFaces = new int[faces.length];
+        for (int i = 0; i < faces.length - 5; i += 6) {
+            revertFaces[i + 0] = faces[i + 0];
+            revertFaces[i + 1] = faces[i + 1];
+            revertFaces[i + 2] = faces[i + 4];
+            revertFaces[i + 3] = faces[i + 5];
+            revertFaces[i + 4] = faces[i + 2];
+            revertFaces[i + 5] = faces[i + 3];
+        }
+        return revertFaces;
+    }
+
+    public static float[] offset(float[] coords, float d, int sign, boolean close) {
+        if (close)
+            return closeOffset(coords, d, sign);
+        else
+            return openOffset(coords, d, sign);
+    }
+
+    public static float[] closeOffset(float[] coords, float t, int sign) {
+
+        int n = coords.length;
+        float a, b, A, B, d, a0, b0, cross;
+        float[] out = new float[n];
+
+        // Unit vector (a,b) along last (close) edge
+        a = coords[0] - coords[n - 3];
+        b = coords[1] - coords[n - 2];
+        d = (float) (Math.sqrt(a * a + b * b));
+        if (d < Double.MIN_VALUE)
+            d = 1;
+        a0 = a /= d;
+        b0 = b /= d;
+
+        // Loop round the polygon, dealing with successive intersections of lines
+        for (int i = 0; i < n - 4; i += 3) {
+            // Unit vector (A,B) along previous edge
+            A = a;
+            B = b;
+            // Unit vector (a,b) along next edge
+            a = coords[i + 3] - coords[i];
+            b = coords[i + 4] - coords[i + 1];
+
+            d = (float) (Math.sqrt(a * a + b * b));
+            if (d < Double.MIN_VALUE) { // Case two points same coordinates
+                a = A;
+                b = B;
+            } else {
+                a /= d;
+                b /= d;
+            }
+
+            // New vertex
+            cross = A * b - a * B;
+
+            if (Math.abs(cross) < SMALL)      // Degenerate cases: 0 or 180 degrees at vertex
+            {
+                out[i] = coords[i] - t * b * sign;
+                out[i + 1] = coords[i + 1] + t * a * sign;
+                out[i + 2] = coords[i + 2];
+            } else {                         // Usual case
+                out[i] = coords[i] + sign * t * (a - A) / cross;
+                out[i + 1] = coords[i + 1] + sign * t * (b - B) / cross;
+                out[i + 2] = coords[i + 2];
+            }
+        }
+
+        // Last vertex
+        A = a;
+        B = b;
+        a = a0;
+        b = b0;
+
+        cross = A * b - a * B;
+
+        if (Math.abs(cross) < SMALL) {
+
+            out[n - 3] = coords[n - 3] - sign * t * b;
+            out[n - 2] = coords[n - 2] + sign * t * a;
+            out[n - 1] = coords[n - 1];
+
+        } else { // Usual case
+
+            out[n - 3] = coords[n - 3] + sign * t * (a - A) / cross;
+            out[n - 2] = coords[n - 2] + sign * t * (b - B) / cross;
+            out[n - 1] = coords[n - 1];
+        }
+
+        return out;
+    }
+
+    public static float[] openOffset(float[] coords, float t, int sign) {
+        int n = coords.length;
+
+        float a, b, A, B, d, cross;
+        float[] out = new float[n];
+
+        // Unit vector (a,b) along last edge
+        a = coords[3] - coords[0];
+        b = coords[4] - coords[1];
+        d = (float) (Math.sqrt(a * a + b * b));
+        if (d < Double.MIN_VALUE) {
+            d = (float) Double.MIN_VALUE;
+        }
+        a /= d;
+        b /= d;
+
+        out[0] = coords[0] - t * b * sign;
+        out[1] = coords[1] + t * a * sign;
+        out[2] = coords[2];
+
+        //FORWARD
+        // Loop round the polygon, dealing with successive intersections of lines
+        for (int i = 3; i < n - 4; i += 3) {
+            // Unit vector (A,B) along previous edge
+            A = a;
+            B = b;
+            // Unit vector (a,b) along next edge
+            a = coords[i + 3] - coords[i];
+            b = coords[i + 4] - coords[i + 1];
+
+            d = (float) (Math.sqrt(a * a + b * b));
+            if (d < Double.MIN_VALUE) { // Case two points same coordinates
+                a = A;
+                b = B;
+            } else {
+                a /= d;
+                b /= d;
+            }
+            // New vertex
+            cross = A * b - a * B;
+
+            if (Math.abs(cross) < SMALL)      // Degenerate cases: 0 or 180 degrees at vertex
+            {
+                out[i] = coords[i] - t * b * sign;
+                out[i + 1] = coords[i + 1] + t * a * sign;
+                out[i + 2] = coords[i + 2];
+            } else                             // Usual case
+            {
+                out[i] = coords[i] + sign * t * (a - A) / cross;
+                out[i + 1] = coords[i + 1] + sign * t * (b - B) / cross;
+                out[i + 2] = coords[i + 2];
+            }
+        }
+
+        // Last vertex
+        out[n - 1] = coords[n - 1]; //Z
+        out[n - 2] = coords[n - 2] + sign * t * a; //y
+        out[n - 3] = coords[n - 3] - sign * t * b; //x
+
+        return out;
+    }
+
+
+    public static int clockwise3D(float[] coords) {
+        double sum = 0;
+        int length = coords.length;
+        for (int i = 3; i < length - 2; i += 3) {
+            sum += (coords[i] - coords[i - 3]) * (coords[i + 1] + coords[i - 2]);
+        }
+
+        sum += (coords[0] - coords[length - 3]) * (coords[1] + coords[length - 2]);
+        if (sum > 0)
+            return -1;
+        return 1;
     }
 }
