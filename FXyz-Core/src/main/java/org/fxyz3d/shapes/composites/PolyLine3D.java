@@ -103,7 +103,7 @@ public class PolyLine3D extends Group {
 
     public void setPoints(List<Point3D> pnts){
         points = pnts;
-        buildRibbon();
+        buildCenterRibbon();
     }
 
     private void buildTriangleTube() {
