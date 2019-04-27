@@ -103,7 +103,7 @@ public class ScatterPlotMesh extends Group {
 
             float width = 1;
             final TriangleMesh mesh = new TriangleMesh();
-            //add each point. For each point add another point shifted on Z axis by width
+            //add each point. For each point add another point shifted on Z axis by DEFAULT_WIDTH
             //This extra point allows us to build triangles later
             point3DList.stream().map((point) -> {
                 //Rear points
@@ -169,7 +169,7 @@ public class ScatterPlotMesh extends Group {
 
             //Need to add the mesh to a MeshView before adding to our 3D scene
             MeshView meshView = new MeshView(mesh);
-            meshView.setDrawMode(DrawMode.LINE);  //Fill so that the line shows width
+            meshView.setDrawMode(DrawMode.LINE);  //Fill so that the line shows DEFAULT_WIDTH
 
             //Color hsb = Color.hsb(((double) i / 12) * 360, 1.0, 1.0, 0.5);
             PhongMaterial material = new PhongMaterial(Color.ROYALBLUE);

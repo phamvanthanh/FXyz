@@ -1439,7 +1439,7 @@ public class MEnv {
         PolyCubeType(MEnv env) {
             super(env, "polyCube");
             addSuperType(env.findNodeType("polyPrimitive"));
-            addAttribute(new MAttribute(env, "width", "w",
+            addAttribute(new MAttribute(env, "DEFAULT_WIDTH", "w",
                                         env.findDataType("float")));
             addAttribute(new MAttribute(env, "height", "h",
                                         env.findDataType("float")));

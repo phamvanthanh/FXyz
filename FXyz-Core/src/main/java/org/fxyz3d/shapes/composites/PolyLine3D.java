@@ -43,12 +43,13 @@ import org.fxyz3d.utils.MeshUtils;
 public class PolyLine3D extends MeshView {
     
     public List<Point3D> points;
-    public static float width = 1.0f;
+    public static float DEFAULT_WIDTH = 1.0f;
+    public float width = DEFAULT_WIDTH;
     private TriangleMesh mesh;
     public static enum LineType {RIBBON, CENTER_RIBBON, TRIANGLE};
 
     public PolyLine3D() {
-        this(null, width);
+        this(null, DEFAULT_WIDTH);
     }
 
     public PolyLine3D(List<Point3D> points, float width) {
@@ -80,9 +81,14 @@ public class PolyLine3D extends MeshView {
         buildCenterRibbon();
     }
 
+    public void setWidth(float width){
+        this.width = width;
+        buildCenterRibbon();
+    }
+
     private void buildTriangleTube() {
         //For each data point add three mesh points as an equilateral triangle
-        float half = new Float(width / 2.0);
+        float half = (float) (width / 2.0);
         for(Point3D point: points) {
             //-0.288675f*hw, -0.5f*hw, -0.204124f*hw,
             mesh.getPoints().addAll(point.x - 0.288675f*half, point.y - 0.5f*half, point.z - 0.204124f*half);
@@ -115,12 +121,12 @@ public class PolyLine3D extends MeshView {
     private void buildRibbon() {
         if(points == null)
             return;
-        //add each point. For each point add another point shifted on Z axis by width
+        //add each point. For each point add another point shifted on Z axis by DEFAULT_WIDTH
         //This extra point allows us to build triangles later
         mesh.getPoints().clear();
         for(Point3D point: points) {
             mesh.getPoints().addAll(point.x,point.y,point.z);
-            mesh.getPoints().addAll(point.x,point.y,point.z+width);
+            mesh.getPoints().addAll(point.x,point.y,point.z+ width);
         }
         //add dummy Texture Coordinate
         mesh.getTexCoords().setAll(0,0);

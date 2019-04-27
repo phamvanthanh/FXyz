@@ -125,7 +125,7 @@ public class ClothMesh extends MeshView {
     }
 
     /**
-     * Builds a ClothMesh with width and height; defaults others
+     * Builds a ClothMesh with DEFAULT_WIDTH and height; defaults others
      *
      * @param width
      * @param height
@@ -162,7 +162,7 @@ public class ClothMesh extends MeshView {
     }
 
     /**
-     * Builds a ClothMesh with divsX, divsY, width and height; defaults others
+     * Builds a ClothMesh with divsX, divsY, DEFAULT_WIDTH and height; defaults others
      *
      * @param dx
      * @param dy
@@ -182,7 +182,7 @@ public class ClothMesh extends MeshView {
     }
 
     /**
-     * Builds a ClothMesh with divsX, divsY, width and height, stretchStrength;
+     * Builds a ClothMesh with divsX, divsY, DEFAULT_WIDTH and height, stretchStrength;
      * defaults others
      *
      * @param dx
@@ -208,7 +208,7 @@ public class ClothMesh extends MeshView {
      *
      * @param divsX divisions along X axis
      * @param divsY divisions along Y axis
-     * @param width requested width
+     * @param width requested DEFAULT_WIDTH
      * @param height requested height
      * @param bendStr strength of bend links
      * @param shearStr strength of shear links
@@ -322,7 +322,7 @@ public class ClothMesh extends MeshView {
                 // stabilLinks 
                 if (X != 0) {
                     p.attatchTo((points.get(points.size() - 1)), xDist, getStretchStrength());
-                    //log.log(Level.INFO, "\nLINK-INFO\nOther Index: {0}, This Index: {1}\nLink Distance: {2}\nStiffness: {3}\n", new Object[]{(points.size() - 2), points.indexOf(p),(width / divsX), stiffness});
+                    //log.log(Level.INFO, "\nLINK-INFO\nOther Index: {0}, This Index: {1}\nLink Distance: {2}\nStiffness: {3}\n", new Object[]{(points.size() - 2), points.indexOf(p),(DEFAULT_WIDTH / divsX), stiffness});
                 }
                 if (Y != 0) {
                     p.attatchTo((points.get((Y - 1) * (divsX) + X)), yDist, getStretchStrength());
@@ -391,7 +391,7 @@ public class ClothMesh extends MeshView {
     /*==========================================================================
      Properties
      *///=======================================================================
-    private final DoubleProperty width = new SimpleDoubleProperty(this, "width", DEFAULT_WIDTH) {
+    private final DoubleProperty width = new SimpleDoubleProperty(this, "DEFAULT_WIDTH", DEFAULT_WIDTH) {
         @Override
         protected void invalidated() {
 

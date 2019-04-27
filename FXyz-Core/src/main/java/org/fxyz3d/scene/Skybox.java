@@ -227,22 +227,22 @@ public class Skybox extends Group{
                 
                 backx = cellSize * 3, backy = cellSize;
         
-        //add top padding x+, y+, width-, height
+        //add top padding x+, y+, DEFAULT_WIDTH-, height
         top.setViewport(new Rectangle2D(topx , topy , cellSize, cellSize ));
         
-        //add left padding x, y+, width, height-
+        //add left padding x, y+, DEFAULT_WIDTH, height-
         left.setViewport(new Rectangle2D(leftx , lefty , cellSize - 1, cellSize - 1));
         
-        //add front padding x+, y+, width-, height
+        //add front padding x+, y+, DEFAULT_WIDTH-, height
         back.setViewport(new Rectangle2D(fwdx , fwdy, cellSize , cellSize));
         
-        //add right padding x, y+, width, height-
+        //add right padding x, y+, DEFAULT_WIDTH, height-
         right.setViewport(new Rectangle2D(rightx, righty , cellSize , cellSize ));
         
-        //add back padding x, y+, width, height-
+        //add back padding x, y+, DEFAULT_WIDTH, height-
         front.setViewport(new Rectangle2D(backx + 1, backy - 1, cellSize - 1, cellSize - 1));
         
-        //add bottom padding x+, y, width-, height-
+        //add bottom padding x+, y, DEFAULT_WIDTH-, height-
         bottom.setViewport(new Rectangle2D(botx, boty, cellSize , cellSize));
         
         for(ImageView v : views){
