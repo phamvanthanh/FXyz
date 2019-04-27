@@ -99,6 +99,12 @@ public class PolyLine3D extends Group {
         getChildren().add(light);
         getChildren().add(meshView);           
     }
+
+    public void setPoints(List<Point3D> pnts){
+        points = pnts;
+        buildRibbon();
+    }
+
     private void buildTriangleTube() {
         //For each data point add three mesh points as an equilateral triangle
         float half = new Float(width / 2.0);
@@ -155,5 +161,7 @@ public class PolyLine3D extends Group {
             mesh.getFaces().addAll(i+1,0,i-2,0,i,0); //add primary face
             mesh.getFaces().addAll(i-1,0,i-2,0,i+1,0); //add secondary Width face
         }        
-    }    
+    }
+
+
 }
