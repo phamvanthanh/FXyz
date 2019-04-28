@@ -44,8 +44,8 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.fxyz3d.geometry.Point3D;
 import org.fxyz3d.samples.FXyzSample;
-import org.fxyz3d.shapes.composites.PolyLine3D;
-import org.fxyz3d.shapes.composites.PolyLine3D.LineType;
+import org.fxyz3d.shapes.primitives.PolyLine3D;
+import org.fxyz3d.shapes.primitives.PolyLine3D.LineType;
 import org.fxyz3d.utils.CameraTransformer;
 
 /**

@@ -34,7 +34,7 @@ import java.util.List;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import org.fxyz3d.geometry.Point3D;
-import org.fxyz3d.shapes.composites.PolyLine3D;
+import org.fxyz3d.shapes.primitives.PolyLine3D;
 
 /**
  *
