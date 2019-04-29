@@ -29,7 +29,6 @@
 
 package org.fxyz3d.samples.shapes.texturedmeshes;
 
-import static javafx.application.Application.launch;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;

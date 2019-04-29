@@ -42,9 +42,9 @@ import org.fxyz3d.utils.MeshUtils;
  */
 public class PolyLine3D extends MeshView {
     
-    public List<Point3D> points;
-    public static float DEFAULT_WIDTH = 2.5f;
-    public float width = DEFAULT_WIDTH;
+    private List<Point3D> points;
+    private static float DEFAULT_WIDTH = 1.0f;
+    private float width = DEFAULT_WIDTH;
     private TriangleMesh mesh;
     public static enum LineType {RIBBON, CENTER_RIBBON, TRIANGLE};
 

@@ -145,7 +145,7 @@ public abstract class ShapeBaseSample<T extends Node> extends FXyzSample {
     private void initSample() {
         buildCamera();
         buildRootNode();
-        buildSkybox();
+//        buildSkybox();
         buildModelContainer();
         buildSubScene();
         buildSubScenePane();

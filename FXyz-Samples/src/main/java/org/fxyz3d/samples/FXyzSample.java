@@ -45,7 +45,7 @@ public abstract class FXyzSample extends FXyzSampleBase {
     protected final ThreadFactory threadFactory;
     public static ExecutorService serviceExecutor;
     
-    protected final Image 
+    protected final Image
             top = new Image(SkyBoxing.class.getResource("/org/fxyz3d/images/skyboxes/top.png").toExternalForm()),
             bottom = new Image(SkyBoxing.class.getResource("/org/fxyz3d/images/skyboxes/bottom.png").toExternalForm()),
             left = new Image(SkyBoxing.class.getResource("/org/fxyz3d/images/skyboxes/left.png").toExternalForm()),
