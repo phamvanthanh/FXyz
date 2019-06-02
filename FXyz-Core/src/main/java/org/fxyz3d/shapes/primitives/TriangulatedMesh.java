@@ -106,6 +106,22 @@ public class TriangulatedMesh extends TexturedMesh {
         setDrawMode(DrawMode.FILL);
         setDepthTest(DepthTest.ENABLE);
     }
+
+    public void setPoints(List<Point3D> points){
+        pointsExterior = points;
+    }
+
+    public void setHoles(List<List<Point3D>> holes){
+        pointsHoles = holes;
+    }
+
+    public List<Point3D> getPoints(){
+        return pointsExterior;
+    }
+
+    public List<List<Point3D>> getHoles(){
+        return pointsHoles;
+    }
     
     @Override
     protected final void updateMesh(){   
