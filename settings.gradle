@@ -1,3 +1,6 @@
 include "FXyz-Core", "FXyz-Client", "FXyz-Samples", "FXyz-Importers"
 
 rootProject.name = "FXyzLibs"
+include 'Samples'
+findProject(':Samples')?.name = 'Samples'
+

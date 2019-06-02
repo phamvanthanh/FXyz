@@ -90,8 +90,8 @@ public abstract class TexturedMesh extends MeshView implements TextureMode {
     protected float[] textureCoords;
     protected int[] smoothingGroups;
 
-    protected final Rectangle rectMesh=new Rectangle(0,0);
-    protected final Rectangle areaMesh=new Rectangle(0,0);
+    protected final Rectangle rectMesh = new Rectangle(0,0);
+    protected final Rectangle areaMesh = new Rectangle(0,0);
 
     protected Rotate rotateX, rotateY, rotateZ;
     protected Translate translate;
@@ -100,7 +100,7 @@ public abstract class TexturedMesh extends MeshView implements TextureMode {
     protected TexturedMesh(){
         setMaterial(helper.getMaterial());
     }
-    private final ObjectProperty<SectionType> sectionType = new SimpleObjectProperty<SectionType>(SectionType.CIRCLE){
+    private final ObjectProperty<SectionType> sectionType = new SimpleObjectProperty<>(SectionType.CIRCLE){
 
         @Override
         protected void invalidated() {

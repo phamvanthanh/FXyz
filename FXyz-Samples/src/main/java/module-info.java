@@ -25,7 +25,7 @@
  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */ 
+ */
 
 module org.fxyz3d.FXyz.Samples {
     requires org.fxyz3d.core;
@@ -42,18 +42,13 @@ module org.fxyz3d.FXyz.Samples {
     requires jfxtras.fxml;
     requires java.scripting;
     requires jdk.scripting.nashorn;
-    
+
     opens org.fxyz3d.controls to javafx.fxml;
     provides org.fxyz3d.FXyzSamplerProject with org.fxyz3d.samples.FXyzProject;
-    
-//    exports org.fxyz3d.samples.importers to org.fxyz3d.client, org.fxyz3d.importers;
-//    exports org.fxyz3d.samples.shapes.compound to org.fxyz3d.client;
-//    exports org.fxyz3d.samples.shapes.texturedmeshes to org.fxyz3d.client;
 
-    exports org.fxyz3d.samples.importers;
-    exports org.fxyz3d.samples.shapes.compound;
-    exports org.fxyz3d.samples.shapes.texturedmeshes;
-
+    exports org.fxyz3d.samples.importers to org.fxyz3d.client, org.fxyz3d.importers;
+    exports org.fxyz3d.samples.shapes.compound to org.fxyz3d.client;
+    exports org.fxyz3d.samples.shapes.texturedmeshes to org.fxyz3d.client;
     exports org.fxyz3d.samples.utilities to org.fxyz3d.client;
     exports org.fxyz3d.samples;
 

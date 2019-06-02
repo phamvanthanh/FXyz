@@ -74,6 +74,7 @@ public class TriangulatedMesh extends TexturedMesh {
     public TriangulatedMesh(List<Point3D> points) {
         this(points,DEFAULT_LEVEL,DEFAULT_HEIGHT,DEFAULT_HOLE_RADIUS);
     }
+
     public TriangulatedMesh(List<Point3D> points, List<List<Point3D>> pointsHole) {
         this(points,pointsHole,DEFAULT_LEVEL,DEFAULT_HEIGHT,DEFAULT_HOLE_RADIUS);
     }

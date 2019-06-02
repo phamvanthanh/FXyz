@@ -308,7 +308,6 @@ public class MeshUtils {
         return out;
     }
 
-
     public static int clockwise3D(float[] coords) {
         double sum = 0;
         int length = coords.length;

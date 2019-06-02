@@ -29,6 +29,7 @@
 
 package org.fxyz3d.samples;
 
+import java.io.File;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
@@ -46,12 +47,20 @@ public abstract class FXyzSample extends FXyzSampleBase {
     public static ExecutorService serviceExecutor;
     
     protected final Image
-            top = new Image(SkyBoxing.class.getResource("/org/fxyz3d/images/skyboxes/top.png").toExternalForm()),
-            bottom = new Image(SkyBoxing.class.getResource("/org/fxyz3d/images/skyboxes/bottom.png").toExternalForm()),
-            left = new Image(SkyBoxing.class.getResource("/org/fxyz3d/images/skyboxes/left.png").toExternalForm()),
-            right = new Image(SkyBoxing.class.getResource("/org/fxyz3d/images/skyboxes/right.png").toExternalForm()),
-            front = new Image(SkyBoxing.class.getResource("/org/fxyz3d/images/skyboxes/front.png").toExternalForm()),
-            back = new Image(SkyBoxing.class.getResource("/org/fxyz3d/images/skyboxes/back.png").toExternalForm());
+//            top = new Image(getClass().getClassLoader().getResource("/org/fxyz3d/images/skyboxes/top.png").toExternalForm()),
+//            bottom = new Image(SkyBoxing.class.getResource("/org/fxyz3d/images/skyboxes/bottom.png").toExternalForm()),
+//            left = new Image(SkyBoxing.class.getResource("/org/fxyz3d/images/skyboxes/left.png").toExternalForm()),
+//            right = new Image(SkyBoxing.class.getResource("/org/fxyz3d/images/skyboxes/right.png").toExternalForm()),
+//            front = new Image(SkyBoxing.class.getResource("/org/fxyz3d/images/skyboxes/front.png").toExternalForm()),
+//            back = new Image(SkyBoxing.class.getResource("/org/fxyz3d/images/skyboxes/back.png").toExternalForm());
+
+            top = new Image((new File("C:\\FXyz\\FXyz-Samples\\src\\main\\resources\\org\\fxyz3d\\images\\skyboxes\\top.png")).toURI().toString()),
+
+            bottom = new Image((new File("C:\\FXyz\\FXyz-Samples\\src\\main\\resources\\org\\fxyz3d\\images\\skyboxes\\bottom.png")).toURI().toString()),
+            left = new Image((new File("C:\\FXyz\\FXyz-Samples\\src\\main\\resources\\org\\fxyz3d\\images\\skyboxes\\left.png")).toURI().toString()),
+            right = new Image((new File("C:\\FXyz\\FXyz-Samples\\src\\main\\resources\\org\\fxyz3d\\images\\skyboxes\\right.png")).toURI().toString()),
+            front = new Image((new File("C:\\FXyz\\FXyz-Samples\\src\\main\\resources\\org\\fxyz3d\\images\\skyboxes\\front.png")).toURI().toString()),
+            back = new Image((new File("C:\\FXyz\\FXyz-Samples\\src\\main\\resources\\org\\fxyz3d\\images\\skyboxes\\back.png")).toURI().toString());
 
     protected Skybox skyBox;
     
