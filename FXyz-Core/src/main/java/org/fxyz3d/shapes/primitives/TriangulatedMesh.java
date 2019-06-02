@@ -122,6 +122,10 @@ public class TriangulatedMesh extends TexturedMesh {
     public List<List<Point3D>> getHoles(){
         return pointsHoles;
     }
+
+    public void render(){
+        updateMesh();
+    }
     
     @Override
     protected final void updateMesh(){   
