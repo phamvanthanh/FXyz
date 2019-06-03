@@ -71,6 +71,10 @@ public class TriangulatedMesh extends TexturedMesh {
     private final static double DEFAULT_HEIGHT = 1d;
     private final static double DEFAULT_HOLE_RADIUS = 0d;
 
+    public TriangulatedMesh() {
+        this(null,DEFAULT_LEVEL,DEFAULT_HEIGHT,DEFAULT_HOLE_RADIUS);
+    }
+
     public TriangulatedMesh(List<Point3D> points) {
         this(points,DEFAULT_LEVEL,DEFAULT_HEIGHT,DEFAULT_HOLE_RADIUS);
     }
@@ -100,7 +104,7 @@ public class TriangulatedMesh extends TexturedMesh {
         setHeight(height);
         setHoleRadius(holeRadius);
         setBounds(bounds);
-        
+        if(this.pointsExterior != null)
         updateMesh();
         setCullFace(CullFace.BACK);
         setDrawMode(DrawMode.FILL);
